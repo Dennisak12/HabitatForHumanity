@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <ImageView fitHeight="604.0" fitWidth="834.0" layoutX="-145.0" layoutY="-90.0">
+         <image>
+            <Image url="@../Habitat for Humanity Images/f2nbsPJ.png" />
+         </image>
+      </ImageView>
+      <Button fx:id="removeAccountButton" layoutX="216.0" layoutY="273.0" mnemonicParsing="false" style="-fx-background-color: #8fe0d9;" text="Remove Account">
+         <font>
+            <Font name="Impact" size="18.0" />
+         </font></Button>
+      <Button fx:id="addAccountButton" layoutX="232.0" layoutY="229.0" mnemonicParsing="false" style="-fx-background-color: #8fe0d9;" text="Add Account">
+         <font>
+            <Font name="Impact" size="18.0" />
+         </font></Button>
+      <Button fx:id="viewReportsButton" layoutX="229.0" layoutY="146.0" mnemonicParsing="false" style="-fx-background-color: #8fe0d9;" text="View Reports">
+         <font>
+            <Font name="Impact" size="18.0" />
+         </font></Button>
+      <Button fx:id="editAccountButton" layoutX="232.0" layoutY="189.0" mnemonicParsing="false" style="-fx-background-color: #8fe0d9;" text="Edit Account">
+         <font>
+            <Font name="Impact" size="18.0" />
+         </font></Button>
+      <Label layoutX="179.0" layoutY="58.0" text="ADMIN ACCESS">
+         <font>
+            <Font name="Maiandra GD" size="34.0" />
+         </font>
+      </Label>
+      <Button fx:id="addItemButton" layoutX="245.0" layoutY="333.0" mnemonicParsing="false" style="-fx-background-color: #8fe0d9;" text="Add Item">
+         <font>
+            <Font name="Impact" size="18.0" />
+         </font></Button>
+   </children>
+</AnchorPane>

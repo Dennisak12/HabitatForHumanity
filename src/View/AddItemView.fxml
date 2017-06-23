@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <ImageView fitHeight="900" fitWidth="975" layoutX="-56.0" layoutY="-25.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../Habitat for Humanity Images/f2nbsPJ.png" />
+         </image></ImageView>
+      <TextField fx:id="itemNameField" layoutX="226.0" layoutY="24.0" />
+      <Label layoutX="129.0" layoutY="24.0" text="Item Name:">
+         <font>
+            <Font name="Kalinga Bold" size="15.0" />
+         </font></Label>
+      <Label layoutX="129.0" layoutY="78.0" text="Quantity:">
+         <font>
+            <Font name="Kalinga Bold" size="15.0" />
+         </font></Label>
+      <Button fx:id="createItemButton" layoutX="264.0" layoutY="329.0" mnemonicParsing="false" style="-fx-background-color: #8fe0d9;" text="Create Item">
+         <font>
+            <Font name="Impact" size="14.0" />
+         </font></Button>
+      <Button fx:id="exitButton" layoutX="546.0" layoutY="11.0" mnemonicParsing="false" style="-fx-background-color: #8fe0d9;" text="Exit">
+         <font>
+            <Font name="Impact" size="14.0" />
+         </font></Button>
+      <TextField fx:id="quantityField" layoutX="226.0" layoutY="78.0" />
+      <TextField fx:id="priceField" layoutX="226.0" layoutY="135.0" />
+      <Label layoutX="129.0" layoutY="135.0" text="Price:">
+         <font>
+            <Font name="Kalinga Bold" size="15.0" />
+         </font></Label>
+      <Button fx:id="addImageButton" layoutX="110.0" layoutY="226.0" mnemonicParsing="false" style="-fx-background-color: #8fe0d9;" text="Add Image">
+         <font>
+            <Font name="Impact" size="14.0" />
+         </font></Button>
+      <MenuButton fx:id="itemCategoryMenu" layoutX="236.0" layoutY="175.0" mnemonicParsing="false" style="-fx-background-color: #8fe0d9;" text="Item Catagory" AnchorPane.topAnchor="175.0">
+        <items>
+          <MenuItem mnemonicParsing="false" text="Action 1" />
+          <MenuItem mnemonicParsing="false" text="Action 2" />
+        </items>
+         <font>
+            <Font name="Impact" size="14.0" />
+         </font>
+      </MenuButton>
+   </children>
+</AnchorPane>
