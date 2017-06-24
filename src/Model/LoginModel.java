@@ -18,61 +18,93 @@ import java.sql.SQLException;
 public class LoginModel {
     Connection connection = null;
 
-    public LoginModel(){
+    public LoginModel() {
         connection = SqliteConnection.Connector();
-        if (connection == null){
+        if (connection == null) {
             System.out.println("Connection not successfull");
             System.exit(1);
         }
     }
-    public boolean isDbConnected(){
-        try{
+
+    public boolean isDbConnected() {
+        try {
             return !connection.isClosed();
-        }catch(SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
             return false;
         }
     }
-    public boolean isLogin(String user, String pass){
+
+    public boolean isLogin(String user, String pass) {
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
         String query = "SELECT * FROM Customer WHERE username = ? and password=?";
-        try{
+        try {
             preparedStatement = connection.prepareStatement(query);
-            preparedStatement.setString(1,user);
-            preparedStatement.setString(2,pass);
+            preparedStatement.setString(1, user);
+            preparedStatement.setString(2, pass);
             resultSet = preparedStatement.executeQuery();
-            if(resultSet.next()){
+            if (resultSet.next()) {
                 return true;
-            }else{
+            } else {
                 return false;
             }
-        }catch(SQLException e){
+        } catch (SQLException e) {
             return false;
-        }finally{
-            try{
+        } finally {
+            try {
                 preparedStatement.close();
                 resultSet.close();
                 connection.close();
-            }catch(SQLException e){
+            } catch (SQLException e) {
                 return false;
             }
         }
     }
 
-    public void resetConnection(){
-        try{
-            if(connection.isClosed()){
+    public void resetConnection() {
+        try {
+            if (connection.isClosed()) {
                 connection = SqliteConnection.Connector();
-                if(connection == null){
+                if (connection == null) {
                     System.out.println("Connection not successfull");
                     resetConnection();
                 }
             }
-        }catch(SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }
+
+    public boolean removeCustomer(String user)throws SQLException {
+        ResultSet resultSet = null;
+        String query = "DELETE FROM Customer WHERE username = ?";
+        try {
+
+            PreparedStatement pstmt = connection.prepareStatement(query);
+                resultSet = pstmt.executeQuery();
+
+                //looking for username column
+                pstmt.setString(1, user);
+                //ready to delete
+                pstmt.executeUpdate();
+
+                if (resultSet.next()) {
+                    System.out.println("testing");
+                    return true;
+
+                } else {
+                    System.out.println("testing222");
+                    return false;
+                }
+
+        } catch (SQLException e) {
+            System.out.println("jumping");
+            return false;
+
+        }
+    }
+
 
     public void addCustomer(String username,String password,String firstName, String lastName, String address, String country,
                             String zipCode, String email,ActionEvent event) throws SQLException,IOException {
@@ -90,14 +122,6 @@ public class LoginModel {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setContentText("Congratulations, your account has been created");
         alert.showAndWait();
-
-        Node node=(Node) event.getSource();
-        Parent root = FXMLLoader.load(getClass().getResource("../View/LoginView2.fxml"));
-        Scene scene = new Scene(root, 900, 975);
-        Stage stage=(Stage) node.getScene().getWindow();
-        stage.setTitle("Habitat For Humanity");
-        stage.setScene(scene);
-        stage.show();
 
     }
 
