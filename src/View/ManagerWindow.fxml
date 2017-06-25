@@ -35,7 +35,7 @@
             <Font name="Maiandra GD" size="34.0" />
          </font>
       </Label>
-      <Button fx:id="addItemButton" layoutX="245.0" layoutY="333.0" mnemonicParsing="false" style="-fx-background-color: #8fe0d9;" text="Add Item">
+      <Button fx:id="addItemButton" layoutX="245.0" layoutY="333.0" onAction="#openAddItem" mnemonicParsing="false" style="-fx-background-color: #8fe0d9;" text="Add Item">
          <font>
             <Font name="Impact" size="18.0" />
          </font></Button>

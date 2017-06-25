@@ -86,7 +86,7 @@ public class LoginModel {
         }
 
         public String getItems(){
-            String query = "SELECT * FROM Customer WHERE username = ?";
+            String query = "SELECT * FROM Customer";
             String username;
 
             try (Connection conn = this.connection;
@@ -120,8 +120,25 @@ public class LoginModel {
 
     }
 
+    public void addItem(String name,int quantity,double price,String category, String imageUrl) throws SQLException,IOException {
+        PreparedStatement preparedStatement;
+        String query = "INSERT INTO Items (name,quantity,price,category,imageUrl) VALUES("
+                + "'" + name + "', " + "'" + quantity + "', " + "'" + price + "', " + "'" + category + "', "
+                + "'" + imageUrl + "'); ";
+        preparedStatement = connection.prepareStatement(query);
+        preparedStatement.executeUpdate();
+        preparedStatement.close();
+        connection.close();
+
+        //confirmation for the user that the account has been created
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setContentText("Item has been stored in database");
+        alert.showAndWait();
+    }
+
+
     public String selectPassword(String password){
-        String query = "SELECT * FROM Customer WHERE username = 'Dennisak12'";
+        String query = "SELECT * FROM Customer";
         try (Connection conn = this.connection;
              Statement statement = conn.createStatement();
              ResultSet result = statement.executeQuery(query)){
@@ -138,7 +155,7 @@ public class LoginModel {
     }
 
     public String selectUsername(String username){
-        String query = "SELECT * FROM Customer WHERE username = 'Dennisak12'";
+        String query = "SELECT * FROM Customer";
         try (Connection conn = this.connection;
              Statement statement = conn.createStatement();
              ResultSet result = statement.executeQuery(query)){
@@ -146,6 +163,7 @@ public class LoginModel {
             // loop through the result set
             while (result.next()) {
                 username = result.getString("username");
+
             }
             return username;
 
@@ -156,7 +174,7 @@ public class LoginModel {
     }
 
     public String selectFirstName(String firstName){
-        String query = "SELECT * FROM Customer WHERE username = 'Dennisak12'";
+        String query = "SELECT * FROM Customer";
         try (Connection conn = this.connection;
              Statement statement = conn.createStatement();
              ResultSet result = statement.executeQuery(query)){
@@ -174,7 +192,7 @@ public class LoginModel {
     }
 
     public String selectLastName(String lastName){
-        String query = "SELECT * FROM Customer WHERE username = 'Dennisak12'";
+        String query = "SELECT * FROM Customer";
         try (Connection conn = this.connection;
              Statement statement = conn.createStatement();
              ResultSet result = statement.executeQuery(query)){
@@ -192,7 +210,7 @@ public class LoginModel {
     }
 
     public String selectaddress(String address){
-        String query = "SELECT * FROM Customer WHERE username = 'Dennisak12'";
+        String query = "SELECT * FROM Customer";
         try (Connection conn = this.connection;
              Statement statement = conn.createStatement();
              ResultSet result = statement.executeQuery(query)){
@@ -210,7 +228,7 @@ public class LoginModel {
     }
 
     public String selectcountry(String country){
-        String query = "SELECT * FROM Customer WHERE username = 'Dennisak12'";
+        String query = "SELECT * FROM Customer";
         try (Connection conn = this.connection;
              Statement statement = conn.createStatement();
              ResultSet result = statement.executeQuery(query)){
@@ -228,7 +246,7 @@ public class LoginModel {
     }
 
     public String selectZipCode(String zipCode){
-        String query = "SELECT * FROM Customer WHERE username = 'Dennisak12'";
+        String query = "SELECT * FROM Customer";
         try (Connection conn = this.connection;
              Statement statement = conn.createStatement();
              ResultSet result = statement.executeQuery(query)){
@@ -245,23 +263,41 @@ public class LoginModel {
     }
 
     public String selectEmail(String email){
-        String query = "SELECT * FROM Customer WHERE username = 'Dennisak12'";
+        PreparedStatement preparedStatement = null;
+        String query = "SELECT * FROM Customer WHERE username = ?";
         try (Connection conn = this.connection;
              Statement statement = conn.createStatement();
              ResultSet result = statement.executeQuery(query)){
 
             // loop through the result set
             while (result.next()) {
-                email = result.getString("email");
+                preparedStatement.setString(8, email);
+//               email = result.setString("email");
             }
+            System.out.println("testing");
+            System.out.println(email);
             return email;
 
         } catch (SQLException e) {
             return "did not find email address";
-
         }
     }
 
+    public String getAllUsernames(String username){
+        String query = "SELECT * FROM Customer";
+        try (Connection conn = this.connection;
+             Statement statement = conn.createStatement();
+             ResultSet result = statement.executeQuery(query)){
 
+            // loop through the result set
+            while (!result.next()) {
+                username = result.getString("username");
+            }
+            return username;
 
+        } catch (SQLException e) {
+            return "did not find username";
+
+        }
+    }
 }

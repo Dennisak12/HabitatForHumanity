@@ -13,9 +13,7 @@ import javafx.scene.control.*;
 import javafx.stage.Stage;
 import java.io.IOException;
 import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+
 
 /**
  * Created by Boss on 6/24/2017.
@@ -40,6 +38,8 @@ public class EditAccountController {
     @FXML
     private Button editAccountButton;
     @FXML
+    private Button loadIntoComboBox;
+    @FXML
     private Button exitFromViewButton;
     @FXML
     private ComboBox<String> usernameComboBox;
@@ -48,18 +48,20 @@ public class EditAccountController {
     private Connection connection;
 
 
-
-    public void createItems(String options){
-        ObservableList<String> list =
-                FXCollections.observableArrayList(
-                        "Wood","Metal","Plastic","Tool","Misc"
-                );
-        usernameComboBox.setItems(list);
-    usernameComboBox.getItems().add(loginModel.getItems());
-
+    public void createItems(ActionEvent event)throws IOException{
+        loginModel.resetConnection();
+        String username = null;
+        ObservableList<String> list = FXCollections.observableArrayList(
+                            loginModel.selectUsername(username));
+        loginModel.resetConnection();
+        usernameComboBox.getItems().add(loginModel.getItems());
+        loginModel.resetConnection();
     }
 
     public void getTextFieldInformation(ActionEvent event) {
+
+        //start fresh on a reset database
+        loginModel.resetConnection();
 
         String username = usernameComboBox.getValue();
         String password= null;

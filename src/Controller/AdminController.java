@@ -7,11 +7,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
-
 import javafx.scene.control.Button;
-import javafx.stage.StageStyle;
 
 
 import java.io.IOException;
@@ -61,10 +58,19 @@ public class AdminController {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../View/RegisterView.fxml"));
         Parent root1 = (Parent) fxmlLoader.load();
         Stage stage = new Stage();
-        stage.setTitle("ABC");
+        stage.setTitle("Create A New Account");
         stage.setScene(new Scene(root1));
         stage.show();
     }
-
+    public void openAddItem(ActionEvent event) throws IOException{
+        Node node=(Node) event.getSource();
+        Parent root = FXMLLoader.load(getClass().getResource("../View/AddItemView.fxml"));
+        Scene scene = new Scene(root, 600, 400);
+        Stage stage=(Stage) node.getScene().getWindow();
+        stage.setTitle("Add An Item To The Database");
+        stage.setScene(scene);
+        stage.setResizable(false);
+        stage.show();
+    }
 
 }
