@@ -1,19 +1,11 @@
 package Model;
 
-
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import javafx.stage.Stage;
-
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class LoginModel {
     Connection connection = null;
@@ -80,31 +72,35 @@ public class LoginModel {
         ResultSet resultSet = null;
         String query = "DELETE FROM Customer WHERE username = ?";
         try {
-
-            PreparedStatement pstmt = connection.prepareStatement(query);
-                resultSet = pstmt.executeQuery();
-
-                //looking for username column
+                PreparedStatement pstmt = connection.prepareStatement(query);
                 pstmt.setString(1, user);
-                //ready to delete
                 pstmt.executeUpdate();
+                System.out.println("Found");
+                return true;
 
-                if (resultSet.next()) {
-                    System.out.println("testing");
-                    return true;
-
-                } else {
-                    System.out.println("testing222");
-                    return false;
-                }
-
-        } catch (SQLException e) {
-            System.out.println("jumping");
-            return false;
-
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+                System.out.println("not found");
+                return false;
+            }
         }
-    }
 
+        public String getItems(){
+            String query = "SELECT * FROM Customer WHERE username = ?";
+            String username;
+
+            try (Connection conn = this.connection;
+                 Statement statement = conn.createStatement();
+                 ResultSet result = statement.executeQuery(query)) {
+                while (result.next()) {
+                    username = result.getString("username");
+                    return username;
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            return "nothing to return";
+        }
 
     public void addCustomer(String username,String password,String firstName, String lastName, String address, String country,
                             String zipCode, String email,ActionEvent event) throws SQLException,IOException {
@@ -117,7 +113,6 @@ public class LoginModel {
         preparedStatement.close();
         connection.close();
 
-
         //confirmation for the user that the account has been created
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setContentText("Congratulations, your account has been created");
@@ -125,7 +120,147 @@ public class LoginModel {
 
     }
 
+    public String selectPassword(String password){
+        String query = "SELECT * FROM Customer WHERE username = 'Dennisak12'";
+        try (Connection conn = this.connection;
+             Statement statement = conn.createStatement();
+             ResultSet result = statement.executeQuery(query)){
 
+            // loop through the result set
+            while (result.next()) {
+                password = result.getString("password");
+            }
+            return password;
+
+        } catch (SQLException e) {
+            return "did not find password";
+        }
+    }
+
+    public String selectUsername(String username){
+        String query = "SELECT * FROM Customer WHERE username = 'Dennisak12'";
+        try (Connection conn = this.connection;
+             Statement statement = conn.createStatement();
+             ResultSet result = statement.executeQuery(query)){
+
+            // loop through the result set
+            while (result.next()) {
+                username = result.getString("username");
+            }
+            return username;
+
+        } catch (SQLException e) {
+            return "did not find username";
+
+        }
+    }
+
+    public String selectFirstName(String firstName){
+        String query = "SELECT * FROM Customer WHERE username = 'Dennisak12'";
+        try (Connection conn = this.connection;
+             Statement statement = conn.createStatement();
+             ResultSet result = statement.executeQuery(query)){
+
+            // loop through the result set
+            while (result.next()) {
+                firstName = result.getString("firstName");
+            }
+            return firstName;
+
+        } catch (SQLException e) {
+            return "did not find first name";
+
+        }
+    }
+
+    public String selectLastName(String lastName){
+        String query = "SELECT * FROM Customer WHERE username = 'Dennisak12'";
+        try (Connection conn = this.connection;
+             Statement statement = conn.createStatement();
+             ResultSet result = statement.executeQuery(query)){
+
+            // loop through the result set
+            while (result.next()) {
+                lastName = result.getString("lastName");
+            }
+            return lastName;
+
+        } catch (SQLException e) {
+            return "did not find last name";
+
+        }
+    }
+
+    public String selectaddress(String address){
+        String query = "SELECT * FROM Customer WHERE username = 'Dennisak12'";
+        try (Connection conn = this.connection;
+             Statement statement = conn.createStatement();
+             ResultSet result = statement.executeQuery(query)){
+
+            // loop through the result set
+            while (result.next()) {
+                address = result.getString("address");
+            }
+            return address;
+
+        } catch (SQLException e) {
+            return "did not find address";
+
+        }
+    }
+
+    public String selectcountry(String country){
+        String query = "SELECT * FROM Customer WHERE username = 'Dennisak12'";
+        try (Connection conn = this.connection;
+             Statement statement = conn.createStatement();
+             ResultSet result = statement.executeQuery(query)){
+
+            // loop through the result set
+            while (result.next()) {
+                country = result.getString("country");
+            }
+            return country;
+
+        } catch (SQLException e) {
+            return "did not find country";
+
+        }
+    }
+
+    public String selectZipCode(String zipCode){
+        String query = "SELECT * FROM Customer WHERE username = 'Dennisak12'";
+        try (Connection conn = this.connection;
+             Statement statement = conn.createStatement();
+             ResultSet result = statement.executeQuery(query)){
+
+            // loop through the result set
+            while (result.next()) {
+                zipCode = result.getString("zipCode");
+            }
+            return zipCode;
+
+        } catch (SQLException e) {
+            return "did not find Zip Code";
+        }
+    }
+
+    public String selectEmail(String email){
+        String query = "SELECT * FROM Customer WHERE username = 'Dennisak12'";
+        try (Connection conn = this.connection;
+             Statement statement = conn.createStatement();
+             ResultSet result = statement.executeQuery(query)){
+
+            // loop through the result set
+            while (result.next()) {
+                email = result.getString("email");
+            }
+            return email;
+
+        } catch (SQLException e) {
+            return "did not find email address";
+
+        }
+    }
 
 
 

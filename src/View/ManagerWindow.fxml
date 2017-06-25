@@ -26,7 +26,7 @@
          <font>
             <Font name="Impact" size="18.0" />
          </font></Button>
-      <Button fx:id="editAccountButton" layoutX="232.0" layoutY="189.0" mnemonicParsing="false" style="-fx-background-color: #8fe0d9;" text="Edit Account">
+      <Button fx:id="editAccountButton" layoutX="232.0" layoutY="189.0" onAction="#jumpToEditAccount" mnemonicParsing="false" style="-fx-background-color: #8fe0d9;" text="Edit Account">
          <font>
             <Font name="Impact" size="18.0" />
          </font></Button>

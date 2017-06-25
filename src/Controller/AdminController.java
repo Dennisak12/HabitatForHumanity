@@ -35,6 +35,17 @@ public class AdminController {
 
     LoginModel loginModel = new LoginModel();
 
+    public void jumpToEditAccount(ActionEvent event) throws IOException {
+        Node node=(Node) event.getSource();
+        Parent root = FXMLLoader.load(getClass().getResource("../View/EditAccountView.fxml"));
+        Scene scene = new Scene(root, 600, 400);
+        Stage stage=(Stage) node.getScene().getWindow();
+        stage.setTitle("Edit An Account");
+        stage.setScene(scene);
+        stage.setResizable(false);
+        stage.show();
+    }
+
     public void jumpToRemoveAccount(ActionEvent event) throws IOException {
         Node node=(Node) event.getSource();
         Parent root = FXMLLoader.load(getClass().getResource("../View/RemoveAccountView.fxml"));
