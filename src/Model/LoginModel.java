@@ -6,6 +6,7 @@ import javafx.scene.image.Image;
 
 import java.io.IOException;
 import java.sql.*;
+import java.util.ArrayList;
 
 public class LoginModel {
     Connection connection = null;
@@ -68,55 +69,68 @@ public class LoginModel {
         }
     }
 
-    public boolean removeCustomer(String user)throws SQLException {
-        ResultSet resultSet = null;
+    public String removeCustomer(String user)throws SQLException {
         String query = "DELETE FROM Customer WHERE username = ?";
-        try {
-                PreparedStatement pstmt = connection.prepareStatement(query);
-                pstmt.setString(1, user);
-                pstmt.executeUpdate();
-                System.out.println("Found");
-                return true;
+        try (Connection conn = this.connection;
+             Statement statement = conn.createStatement();
+             ResultSet result = statement.executeQuery(query)){
 
-            } catch (SQLException e) {
-                System.out.println(e.getMessage());
-                System.out.println("not found");
-                return false;
+            // loop through the result set
+            while (result.next()) {
+                user = result.getString("username");
             }
+            return user;
+
+        } catch (SQLException e) {
+            System.out.println("User not found");
+            return null;
         }
 
-    public String getItemsFromDatabase(){
+    }
+
+
+
+    public ArrayList getItemsFromDatabase(){
         String query = "SELECT * FROM Items";
         String name;
+        ArrayList<String> array = new ArrayList<String>();
+
         try (Connection conn = this.connection;
              Statement statement = conn.createStatement();
              ResultSet result = statement.executeQuery(query)) {
-                while (result.next()) {
-                    name = result.getString("name");
-                    return name;
-                }
+            while (result.next()) {
+                name = result.getString("name");
+                array.add(name);
+            }
+            return array;
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return "nothing to return";
+        return array;
     }
 
-        public String getUsernames(){
-            String query = "SELECT * FROM Customer";
-            String username;
+    public ArrayList getUsernames(){
+        String query = "SELECT * FROM Customer";
+        String username;
+        ArrayList<String> array = new ArrayList<String>();
 
-            try (Connection conn = this.connection;
-                 Statement statement = conn.createStatement();
-                 ResultSet result = statement.executeQuery(query)) {
-                while (result.next()) {
-                    username = result.getString("username");
-                    return username;
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
+        try (Connection conn = this.connection;
+             Statement statement = conn.createStatement();
+             ResultSet result = statement.executeQuery(query)) {
+
+            while (result.next()) {
+                username = result.getString("username");
+                array.add(username);
+
             }
-            return "nothing to return";
+            return array;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
+        return array;
+    }
+
 
     public void addCustomer(String username,String password,String firstName, String lastName, String address, String country,
                             String zipCode, String email,ActionEvent event) throws SQLException,IOException {

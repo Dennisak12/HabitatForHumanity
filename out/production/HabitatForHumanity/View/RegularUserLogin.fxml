@@ -13,6 +13,10 @@
             <Image url="@../Habitat for Humanity Images/f2nbsPJ.png" />
          </image>
       </ImageView>
+      <Button fx:id="logoutButton" layoutX="520" layoutY="460" onAction="#jumpToMainScreen" mnemonicParsing="false" style="-fx-background-color: #8fe0d9;" text="logout">
+         <font>
+            <Font name="Impact" size="14.0" />
+         </font></Button>
       <Label fx:id="WelcomeLabel" layoutX="56.0" layoutY="77.0" text="Welcome To Habitat For Humanity">
          <font>
             <Font name="Maiandra GD" size="33.0" />
@@ -34,6 +38,7 @@
          <font>
             <Font name="Impact" size="12.0" />
          </font></Button>
+
       <Button fx:id="viewHistoryButton" layoutX="222.0" layoutY="276.0" mnemonicParsing="false" style="-fx-background-color: #8fe0d9;" text="View Shop History">
          <font>
             <Font name="Impact" size="15.0" />

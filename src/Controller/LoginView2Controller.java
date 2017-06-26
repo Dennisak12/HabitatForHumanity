@@ -1,6 +1,5 @@
 package Controller;
 
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -92,7 +91,7 @@ public class LoginView2Controller implements Initializable {
                 connectedLabel.setText("Username and password are correct");
                 Node node = (Node) event.getSource();
                 Parent root = FXMLLoader.load(getClass().getResource("../View/RegularUserLogin.fxml"));
-                Scene scene = new Scene(root, 700, 600);
+                Scene scene = new Scene(root, 600, 500);
                 Stage stage = (Stage) node.getScene().getWindow();
                 stage.setTitle("Welcome To Habitat For Humanity");
                 stage.setScene(scene);
@@ -100,7 +99,7 @@ public class LoginView2Controller implements Initializable {
                 stage.show();
             }
         }else {
-            connectedLabel.setText("Username and password are incorrect");
+            connectedLabel.setText("Incorrect Username or Password!");
             loginModel.resetConnection();
         }
     }

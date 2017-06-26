@@ -7,21 +7,18 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-
+import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import javafx.scene.control.Button;
-
 
 import java.io.IOException;
 import java.sql.SQLException;
 
 /**
- * Created by Boss on 6/23/2017.
+ * Created by Boss on 6/26/2017.
  */
-public class RegisterViewController {
-
+public class MockRegisterController {
     @FXML
     private TextField userNameField;
     @FXML
@@ -56,7 +53,7 @@ public class RegisterViewController {
     public void exitScene(ActionEvent event)throws IOException {
         Node node=(Node) event.getSource();
         Parent root = FXMLLoader.load(getClass().getResource("../View/ManagerWindow.fxml"));
-        Scene scene = new Scene(root, 700, 600);
+        Scene scene = new Scene(root, 600, 400);
         Stage stage=(Stage) node.getScene().getWindow();
         stage.setTitle("Habitat For Humanity");
         stage.setScene(scene);

@@ -64,12 +64,7 @@
                </font>
             </Label>
             <ComboBox fx:id="resultsComboBox" layoutX="156.0" layoutY="106.0" prefWidth="150.0" promptText="Results" style="-fx-background-color: #8fe0d9;" />
-            <Button fx:id="getResultsButton" layoutX="189.0" layoutY="67.0" onAction="#setComboBox" mnemonicParsing="false" style="-fx-background-color: #8fe0d9;" text="Get results">
-               <font>
-                  <Font name="Impact" size="14.0" />
-               </font>
-            </Button>
-            <Button fx:id="makePaymentButton" layoutX="157.0" layoutY="176.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="149.0" style="-fx-background-color: #8fe0d9;" text="Make Payment">
+            <Button fx:id="makePaymentButton" layoutX="157.0" layoutY="176.0" onAction="#jumpToPayment" mnemonicParsing="false" prefHeight="34.0" prefWidth="149.0" style="-fx-background-color: #8fe0d9;" text="Make Payment">
                <font>
                   <Font name="Impact" size="18.0" />
                </font>

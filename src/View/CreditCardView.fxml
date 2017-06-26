@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.PaymentController">
+   <children>
+      <ImageView fitHeight="900" fitWidth="975" layoutX="-37.0" layoutY="-30.0">
+         <image>
+            <Image url="@../Habitat for Humanity Images/f2nbsPJ.png" />
+         </image>
+      </ImageView>
+      <TextField fx:id="countryField" layoutX="158.0" layoutY="73.0" />
+      <TextField fx:id="lastNameField" layoutX="158.0" layoutY="110.0" />
+      <TextField fx:id="firstNameField" layoutX="158.0" layoutY="146.0" />
+      <TextField fx:id="cscField" layoutX="158.0" layoutY="182.0" />
+      <TextField fx:id="expirationDateField" layoutX="158.0" layoutY="221.0" prefHeight="25.0" prefWidth="76.0" />
+      <TextField fx:id="billingAddressField" layoutX="158.0" layoutY="264.0" />
+      <TextField layoutX="281.0" layoutY="221.0" prefHeight="25.0" prefWidth="53.0" />
+      <TextField fx:id="stateField" layoutX="160.0" layoutY="303.0" />
+      <TextField fx:id="teleNumberField" layoutX="160.0" layoutY="344.0" />
+      <Button fx:id="purchaseItemButton" layoutX="376.0" layoutY="323.0" mnemonicParsing="false" style="-fx-background-color: #8fe0d9;" text="Pruchase Item">
+         <font>
+            <Font name="Impact" size="15.0" />
+         </font>
+      </Button>
+      <Button fx:id="exitButton" layoutX="510.0" layoutY="323.0" onAction="#exitToItemSearch" mnemonicParsing="false" style="-fx-background-color: #8fe0d9;" text="Go Back">
+         <font>
+            <Font name="Impact" size="15.0" />
+         </font>
+      </Button>
+      <Label layoutX="28.0" layoutY="77.0" text="Country:">
+         <font>
+            <Font name="Corbel" size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="29.0" layoutY="114.0" text="Last Name:">
+         <font>
+            <Font name="Corbel" size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="29.0" layoutY="150.0" text="First Name:">
+         <font>
+            <Font name="Corbel" size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="29.0" layoutY="187.0" text="Credit Card Number:">
+         <font>
+            <Font name="Corbel" size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="29.0" layoutY="226.0" text="Expiration Date:">
+         <font>
+            <Font name="Corbel" size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="29.0" layoutY="269.0" text="Billing Address:">
+         <font>
+            <Font name="Corbel" size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="29.0" layoutY="308.0" text="State:">
+         <font>
+            <Font name="Corbel" size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="29.0" layoutY="349.0" text="Telephone Number:">
+         <font>
+            <Font name="Corbel" size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="245.0" layoutY="222.0" text="CSC:">
+         <font>
+            <Font name="Corbel" size="14.0" />
+         </font>
+      </Label>
+      <Label fx:id="itemNameLabel" layoutX="419.0" layoutY="100.0" text="Label">
+         <font>
+            <Font name="Consolas Bold" size="16.0" />
+         </font>
+      </Label>
+      <Label fx:id="itemPriceLabel" layoutX="419.0" layoutY="137.0" text="Label">
+         <font>
+            <Font name="Consolas Bold" size="16.0" />
+         </font>
+      </Label>
+      <Label layoutX="29.0" layoutY="28.0" text="Please Enter Your Credit Card Information">
+         <font>
+            <Font name="Consolas Bold" size="18.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

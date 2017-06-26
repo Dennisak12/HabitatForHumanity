@@ -30,6 +30,8 @@ public class RegularUserController {
     private Button aboutButton;
     @FXML
     private Button helpButton;
+    @FXML
+    private Button logoutButton;
 
     LoginModel loginModel = new LoginModel();
 
@@ -69,6 +71,34 @@ public class RegularUserController {
         Scene scene = new Scene(root, 700, 573);
         Stage stage=(Stage) node.getScene().getWindow();
         stage.setTitle("Purchase An Item");
+        stage.setScene(scene);
+        stage.setResizable(false);
+        stage.show();
+    }
+
+    public void jumpToLoginScreen(ActionEvent event) throws IOException {
+        Node node=(Node) event.getSource();
+        Parent root = FXMLLoader.load(getClass().getResource("../View/LoginView2.fxml"));
+        Scene scene = new Scene(root, 700, 600);
+        Stage stage=(Stage) node.getScene().getWindow();
+        stage.setTitle("Welcome To Habitat For Humanity");
+        stage.setScene(scene);
+        stage.setResizable(false);
+        stage.show();
+    }
+
+    public void jumpToMainScreen(ActionEvent event) throws IOException {
+        //confirmation for the user that the account has been created
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setHeaderText("Logging Out");
+        alert.setContentText("Successfully Logged Out");
+        alert.showAndWait();
+
+        Node node=(Node) event.getSource();
+        Parent root = FXMLLoader.load(getClass().getResource("../View/LoginView2.fxml"));
+        Scene scene = new Scene(root, 700, 600);
+        Stage stage=(Stage) node.getScene().getWindow();
+        stage.setTitle("Welcome To Habitat For Humanity");
         stage.setScene(scene);
         stage.setResizable(false);
         stage.show();

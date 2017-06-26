@@ -6,19 +6,23 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 import java.io.IOException;
+import java.net.URL;
 import java.sql.Connection;
+import java.util.ArrayList;
+import java.util.ResourceBundle;
 
 
 /**
  * Created by Boss on 6/24/2017.
  */
-public class EditAccountController {
+public class EditAccountController implements Initializable{
     @FXML
     private TextField userNameField;
     @FXML
@@ -38,8 +42,6 @@ public class EditAccountController {
     @FXML
     private Button editAccountButton;
     @FXML
-    private Button loadIntoComboBox;
-    @FXML
     private Button exitFromViewButton;
     @FXML
     private ComboBox<String> usernameComboBox;
@@ -47,16 +49,6 @@ public class EditAccountController {
     LoginModel loginModel = new LoginModel();
     private Connection connection;
 
-
-    public void createItems(ActionEvent event)throws IOException{
-        loginModel.resetConnection();
-        String username = null;
-        ObservableList<String> list = FXCollections.observableArrayList(
-                            loginModel.selectUsername(username));
-        loginModel.resetConnection();
-        usernameComboBox.getItems().add(loginModel.getUsernames());
-        loginModel.resetConnection();
-    }
 
     public void getTextFieldInformation(ActionEvent event) {
 
@@ -91,6 +83,26 @@ public class EditAccountController {
         loginModel.resetConnection();
 
     }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        loginModel.resetConnection();
+        String username = null;
+        ArrayList<String> array = new ArrayList<>();
+        array = loginModel.getUsernames();
+
+        loginModel.resetConnection();
+        ObservableList<String> list = FXCollections.observableArrayList();
+
+        loginModel.resetConnection();
+        for(int i = 0; i < array.size(); i++){
+            loginModel.resetConnection();
+            list.add(array.get(i));
+        }
+        usernameComboBox.getItems().addAll(list);
+        loginModel.resetConnection();
+    }
+
 
     public void exitToAdminPane(ActionEvent event)throws IOException {
         Node node=(Node) event.getSource();

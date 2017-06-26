@@ -58,11 +58,13 @@ public class AdminController {
     }
 
     public void openCreateAccount(ActionEvent event) throws IOException{
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../View/RegisterView.fxml"));
-        Parent root1 = (Parent) fxmlLoader.load();
-        Stage stage = new Stage();
-        stage.setTitle("Create A New Account");
-        stage.setScene(new Scene(root1));
+        Node node=(Node) event.getSource();
+        Parent root = FXMLLoader.load(getClass().getResource("../View/MockRegisterView.fxml"));
+        Scene scene = new Scene(root, 600, 400);
+        Stage stage=(Stage) node.getScene().getWindow();
+        stage.setTitle("Habitat For Humanity");
+        stage.setScene(scene);
+        stage.setResizable(false);
         stage.show();
     }
     public void openAddItem(ActionEvent event) throws IOException{

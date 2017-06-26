@@ -79,7 +79,7 @@
             <Font name="Impact" size="16.0" />
          </font>
       </Button>
-      <Button fx:id="loadIntoComboBox" layoutX="390.0" layoutY="80.0" onAction="#createItems" mnemonicParsing="false" style="-fx-background-color: #8fe0d9;" text="Load Accounts">
+      <Button fx:id="loadIntoComboBox" layoutX="390.0" layoutY="80.0" mnemonicParsing="false" style="-fx-background-color: #8fe0d9;" text="Load Accounts">
          <font>
             <Font name="Impact" size="16.0" />
          </font>

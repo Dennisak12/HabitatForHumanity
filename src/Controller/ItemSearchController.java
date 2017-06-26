@@ -6,6 +6,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -18,12 +19,15 @@ import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.ResourceBundle;
 
 /**
  * Created by Boss on 6/25/2017.
  */
 
-public class ItemSearchController {
+public class ItemSearchController implements Initializable{
 
     @FXML
     private Button getResultsButton;
@@ -73,6 +77,26 @@ public class ItemSearchController {
 
     }
 
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        loginModel.resetConnection();
+
+        ArrayList<String> array = new ArrayList<>();
+        array = loginModel.getItemsFromDatabase();
+
+        loginModel.resetConnection();
+        ObservableList<String> list = FXCollections.observableArrayList();
+
+        loginModel.resetConnection();
+        for(int i = 0; i < array.size(); i++){
+            loginModel.resetConnection();
+            list.add(array.get(i));
+        }
+        resultsComboBox.getItems().addAll(list);
+        loginModel.resetConnection();
+    }
+
+
 
     public void setComboBox(ActionEvent event) throws IOException{
         loginModel.resetConnection();
@@ -87,11 +111,23 @@ public class ItemSearchController {
     public void jumpToRegularUser(ActionEvent event) throws IOException{
         Node node=(Node) event.getSource();
         Parent root = FXMLLoader.load(getClass().getResource("../View/RegularUserLogin.fxml"));
-        Scene scene = new Scene(root, 600, 400);
+        Scene scene = new Scene(root, 600, 500);
         Stage stage=(Stage) node.getScene().getWindow();
         stage.setTitle("Welcome to Habitat For Humanity");
         stage.setScene(scene);
         stage.setResizable(false);
         stage.show();
     }
+
+    public void jumpToPayment(ActionEvent event) throws IOException{
+        Node node=(Node) event.getSource();
+        Parent root = FXMLLoader.load(getClass().getResource("../View/CreditCardView.fxml"));
+        Scene scene = new Scene(root, 600, 400);
+        Stage stage=(Stage) node.getScene().getWindow();
+        stage.setTitle("Make A Payment");
+        stage.setScene(scene);
+        stage.setResizable(false);
+        stage.show();
+    }
+
 }
