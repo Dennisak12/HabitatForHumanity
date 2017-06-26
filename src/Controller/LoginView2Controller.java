@@ -67,8 +67,38 @@ public class LoginView2Controller implements Initializable {
         String username = usernameField.getText();
         String password = passwordField.getText();
 
+        System.out.println(username + " " + password);
+
+        //tells us that there is a correct username and password
         if(loginModel.isLogin(username,password)){
-            connectedLabel.setText("Username and password are correct");
+            System.out.println("connection successfull");
+
+            //if username matches the admins, jump to admin pane
+            if(username.equals("Administrator") && password.equals("admin")){
+                System.out.println("connection successfull admin");
+                Node node=(Node) event.getSource();
+                Parent root = FXMLLoader.load(getClass().getResource("../View/ManagerWindow.fxml"));
+                Scene scene = new Scene(root, 600, 400);
+                Stage stage=(Stage) node.getScene().getWindow();
+                stage.setTitle("Administrator");
+                stage.setScene(scene);
+                stage.setResizable(false);
+                stage.show();
+
+                //if username and password doesnt match admin, jump to regular user pane
+            }else {
+
+                System.out.println("connection successfull regular");
+                connectedLabel.setText("Username and password are correct");
+                Node node = (Node) event.getSource();
+                Parent root = FXMLLoader.load(getClass().getResource("../View/RegularUserLogin.fxml"));
+                Scene scene = new Scene(root, 700, 600);
+                Stage stage = (Stage) node.getScene().getWindow();
+                stage.setTitle("Welcome To Habitat For Humanity");
+                stage.setScene(scene);
+                stage.setResizable(false);
+                stage.show();
+            }
         }else {
             connectedLabel.setText("Username and password are incorrect");
             loginModel.resetConnection();

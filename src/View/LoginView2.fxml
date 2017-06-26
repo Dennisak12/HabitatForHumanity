@@ -10,13 +10,11 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.LoginView2Controller">
    <children>
-
       <ImageView fitHeight="900" fitWidth="975" layoutX="-37.0" layoutY="-30.0">
          <image>
             <Image url="@../Habitat for Humanity Images/f2nbsPJ.png" />
          </image>
       </ImageView>
-
       <ImageView fitHeight="200" fitWidth="700" layoutX="0.0" layoutY="70.0">
          <image>
             <Image url="@../Habitat for Humanity Images/1200px-Habitat_for_humanity.svg.png" />

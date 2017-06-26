@@ -54,7 +54,7 @@ public class EditAccountController {
         ObservableList<String> list = FXCollections.observableArrayList(
                             loginModel.selectUsername(username));
         loginModel.resetConnection();
-        usernameComboBox.getItems().add(loginModel.getItems());
+        usernameComboBox.getItems().add(loginModel.getUsernames());
         loginModel.resetConnection();
     }
 

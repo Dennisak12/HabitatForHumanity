@@ -1,9 +1,9 @@
 package Model;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Alert;
+import javafx.scene.image.Image;
+
 import java.io.IOException;
 import java.sql.*;
 
@@ -85,7 +85,23 @@ public class LoginModel {
             }
         }
 
-        public String getItems(){
+    public String getItemsFromDatabase(){
+        String query = "SELECT * FROM Items";
+        String name;
+        try (Connection conn = this.connection;
+             Statement statement = conn.createStatement();
+             ResultSet result = statement.executeQuery(query)) {
+                while (result.next()) {
+                    name = result.getString("name");
+                    return name;
+                }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return "nothing to return";
+    }
+
+        public String getUsernames(){
             String query = "SELECT * FROM Customer";
             String username;
 
@@ -283,20 +299,42 @@ public class LoginModel {
         }
     }
 
-    public String getAllUsernames(String username){
-        String query = "SELECT * FROM Customer";
+    public String getImageUrl(String name){
+        String query = "SELECT * FROM Items";
         try (Connection conn = this.connection;
              Statement statement = conn.createStatement();
              ResultSet result = statement.executeQuery(query)){
 
             // loop through the result set
-            while (!result.next()) {
-                username = result.getString("username");
+            while (result.next()) {
+                name = result.getString("imageUrl");
+
             }
-            return username;
+            System.out.println(name);
+            return name;
 
         } catch (SQLException e) {
             return "did not find username";
+
+        }
+    }
+
+    public String getItemPrice(String name){
+        String query = "SELECT * FROM Items";
+        try (Connection conn = this.connection;
+             Statement statement = conn.createStatement();
+             ResultSet result = statement.executeQuery(query)){
+
+            // loop through the result set
+            while (result.next()) {
+                name = result.getString("price");
+
+            }
+            System.out.println(name);
+            return name;
+
+        } catch (SQLException e) {
+            return "";
 
         }
     }
