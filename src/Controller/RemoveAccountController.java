@@ -41,15 +41,13 @@ public class RemoveAccountController {
     }
 
     public void acceptRemoveAccount(){
-        String username = removeAccountField.getText();
-
         try {
             //selectAll is a test method to gather information on the customer
-
             loginModel.resetConnection();
-
             //searches for the username to delete the account
-            if(loginModel.removeCustomer(username) == username){
+            String username = removeAccountField.getText();
+
+            if(loginModel.removeCustomer(username)){
                 //alerting the user that the account is not in the database
                 Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
                 alert.setContentText("Account " + username + " has been deleted");
@@ -57,8 +55,7 @@ public class RemoveAccountController {
 
                 //resetting database
                 loginModel.resetConnection();
-            }else {
-
+                }else {
                 //alerting the user that the account has been deleted
                 Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
                 alert.setContentText("Account " + username + " was not found in our database");

@@ -69,26 +69,43 @@ public class LoginModel {
         }
     }
 
-    public String removeCustomer(String user)throws SQLException {
+    public boolean removeCustomer(String user)throws SQLException {
         String query = "DELETE FROM Customer WHERE username = ?";
-        try (Connection conn = this.connection;
-             Statement statement = conn.createStatement();
-             ResultSet result = statement.executeQuery(query)){
-
+        PreparedStatement preparedStatement = null;
+        ResultSet result = null;
+        String name = null;
+        try {
+            preparedStatement = connection.prepareStatement(query);
+            System.out.println(user);
+            preparedStatement.setString(1, user);
+            result = preparedStatement.executeQuery();
             // loop through the result set
             while (result.next()) {
-                user = result.getString("username");
+                name = result.getString("username");
+                return true;
             }
-            return user;
-
+            return true;
         } catch (SQLException e) {
-            System.out.println("User not found");
-            return null;
+            return false;
         }
-
     }
 
+    public String getItemFromUniqueDatabase(){
+        String query = "SELECT * FROM ItemToPurchase";
+        String name = null;
 
+        try (Connection conn = this.connection;
+             Statement statement = conn.createStatement();
+             ResultSet result = statement.executeQuery(query)) {
+            while (result.next()) {
+                name = result.getString("name");
+            }
+            return name;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return name;
+    }
 
     public ArrayList getItemsFromDatabase(){
         String query = "SELECT * FROM Items";
@@ -131,6 +148,54 @@ public class LoginModel {
         return array;
     }
 
+    public ArrayList<String> getUsernameInformation(String username) {
+        String query = "SELECT * FROM Customer WHERE username=?";
+        ArrayList<String> array = new ArrayList<String>();
+        PreparedStatement preparedStatement = null;
+        ResultSet result = null;
+        String password;
+        String firstName;
+        String lastName;
+        String address;
+        String country;
+        String zipCode;
+        String email;
+
+        try {
+            preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, username);
+            result = preparedStatement.executeQuery();
+
+            if (result.next()) {
+                array.add(username);
+                password = result.getString("password");
+                array.add(password);
+                firstName = result.getString("firstName");
+                array.add(firstName);
+                lastName = result.getString("lastName");
+                array.add(lastName);
+                address = result.getString("address");
+                array.add(address);
+                country = result.getString("country");
+                array.add(country);
+                zipCode = result.getString("zipCode");
+                array.add(zipCode);
+                email = result.getString("email");
+                array.add(email);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                preparedStatement.close();
+                result.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return array;
+    }
 
     public void addCustomer(String username,String password,String firstName, String lastName, String address, String country,
                             String zipCode, String email,ActionEvent event) throws SQLException,IOException {
@@ -166,22 +231,14 @@ public class LoginModel {
         alert.showAndWait();
     }
 
-
-    public String selectPassword(String password){
-        String query = "SELECT * FROM Customer";
-        try (Connection conn = this.connection;
-             Statement statement = conn.createStatement();
-             ResultSet result = statement.executeQuery(query)){
-
-            // loop through the result set
-            while (result.next()) {
-                password = result.getString("password");
-            }
-            return password;
-
-        } catch (SQLException e) {
-            return "did not find password";
-        }
+    public void addUniqueItem(String name,double price) throws SQLException,IOException {
+        PreparedStatement preparedStatement;
+        String query = "INSERT INTO ItemToPurchase (name,price) VALUES("
+                + "'" + name + "', " + "'" + price + "'); ";
+        preparedStatement = connection.prepareStatement(query);
+        preparedStatement.executeUpdate();
+        preparedStatement.close();
+        connection.close();
     }
 
     public String selectUsername(String username){
@@ -193,163 +250,87 @@ public class LoginModel {
             // loop through the result set
             while (result.next()) {
                 username = result.getString("username");
-
             }
             return username;
-
         } catch (SQLException e) {
             return "did not find username";
-
-        }
-    }
-
-    public String selectFirstName(String firstName){
-        String query = "SELECT * FROM Customer";
-        try (Connection conn = this.connection;
-             Statement statement = conn.createStatement();
-             ResultSet result = statement.executeQuery(query)){
-
-            // loop through the result set
-            while (result.next()) {
-                firstName = result.getString("firstName");
-            }
-            return firstName;
-
-        } catch (SQLException e) {
-            return "did not find first name";
-
-        }
-    }
-
-    public String selectLastName(String lastName){
-        String query = "SELECT * FROM Customer";
-        try (Connection conn = this.connection;
-             Statement statement = conn.createStatement();
-             ResultSet result = statement.executeQuery(query)){
-
-            // loop through the result set
-            while (result.next()) {
-                lastName = result.getString("lastName");
-            }
-            return lastName;
-
-        } catch (SQLException e) {
-            return "did not find last name";
-
-        }
-    }
-
-    public String selectaddress(String address){
-        String query = "SELECT * FROM Customer";
-        try (Connection conn = this.connection;
-             Statement statement = conn.createStatement();
-             ResultSet result = statement.executeQuery(query)){
-
-            // loop through the result set
-            while (result.next()) {
-                address = result.getString("address");
-            }
-            return address;
-
-        } catch (SQLException e) {
-            return "did not find address";
-
-        }
-    }
-
-    public String selectcountry(String country){
-        String query = "SELECT * FROM Customer";
-        try (Connection conn = this.connection;
-             Statement statement = conn.createStatement();
-             ResultSet result = statement.executeQuery(query)){
-
-            // loop through the result set
-            while (result.next()) {
-                country = result.getString("country");
-            }
-            return country;
-
-        } catch (SQLException e) {
-            return "did not find country";
-
-        }
-    }
-
-    public String selectZipCode(String zipCode){
-        String query = "SELECT * FROM Customer";
-        try (Connection conn = this.connection;
-             Statement statement = conn.createStatement();
-             ResultSet result = statement.executeQuery(query)){
-
-            // loop through the result set
-            while (result.next()) {
-                zipCode = result.getString("zipCode");
-            }
-            return zipCode;
-
-        } catch (SQLException e) {
-            return "did not find Zip Code";
-        }
-    }
-
-    public String selectEmail(String email){
-        PreparedStatement preparedStatement = null;
-        String query = "SELECT * FROM Customer WHERE username = ?";
-        try (Connection conn = this.connection;
-             Statement statement = conn.createStatement();
-             ResultSet result = statement.executeQuery(query)){
-
-            // loop through the result set
-            while (result.next()) {
-                preparedStatement.setString(8, email);
-//               email = result.setString("email");
-            }
-            System.out.println("testing");
-            System.out.println(email);
-            return email;
-
-        } catch (SQLException e) {
-            return "did not find email address";
         }
     }
 
     public String getImageUrl(String name){
-        String query = "SELECT * FROM Items";
-        try (Connection conn = this.connection;
-             Statement statement = conn.createStatement();
-             ResultSet result = statement.executeQuery(query)){
+        String query = "SELECT * FROM Items WHERE name = ?";
+        PreparedStatement preparedStatement = null;
+        ResultSet result = null;
+        String url = null;
+
+        try {preparedStatement = connection.prepareStatement(query);
+            System.out.println(name);
+            preparedStatement.setString(1, name);
+            result = preparedStatement.executeQuery();
 
             // loop through the result set
             while (result.next()) {
-                name = result.getString("imageUrl");
+                url = result.getString("imageUrl");
 
             }
+            return url;
+        } catch (SQLException e) {
+            return "failure";
+        }
+    }
+
+    public double getItemPrice(String name) {
+        String query = "SELECT * FROM Items WHERE name = ?";
+        PreparedStatement preparedStatement = null;
+        ResultSet result = null;
+        double price = 0;
+
+        try {
+            preparedStatement = connection.prepareStatement(query);
             System.out.println(name);
-            return name;
+            preparedStatement.setString(1, name);
+            result = preparedStatement.executeQuery();
+
+            // loop through the result set
+            while (result.next()) {
+                price = result.getDouble("price");
+
+            }
+
+            return price;
 
         } catch (SQLException e) {
-            return "did not find username";
+
+            return 0;
 
         }
     }
 
-    public String getItemPrice(String name){
-        String query = "SELECT * FROM Items";
-        try (Connection conn = this.connection;
-             Statement statement = conn.createStatement();
-             ResultSet result = statement.executeQuery(query)){
+    public double getUniqueItemPrice(){
+        String query = "SELECT * FROM ItemToPurchase";
+        PreparedStatement preparedStatement = null;
+        ResultSet result = null;
+        double price = 0;
+
+        try {preparedStatement = connection.prepareStatement(query);
+            System.out.println(price);
+            result = preparedStatement.executeQuery();
 
             // loop through the result set
             while (result.next()) {
-                name = result.getString("price");
-
+                price = result.getDouble("price");
+                return price;
             }
-            System.out.println(name);
-            return name;
-
+            return price;
         } catch (SQLException e) {
-            return "";
-
+            return 0;
         }
     }
+
+    public void deleteUniqueTable() throws SQLException {
+        Statement stmt = connection.createStatement();
+        String sqlCommand = "DELETE FROM 'ItemToPurchase'";
+        stmt.executeUpdate(sqlCommand);
+    }
+
 }

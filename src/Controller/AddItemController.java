@@ -6,6 +6,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -20,12 +21,14 @@ import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.sql.SQLException;
+import java.util.ResourceBundle;
 
 /**
  * Created by Boss on 6/25/2017.
  */
-public class AddItemController {
+public class AddItemController implements Initializable{
     @FXML
     private TextField itemNameField;
     @FXML
@@ -51,19 +54,12 @@ public class AddItemController {
     String image = null;
 
 
-    public void addItemsToBox(ActionEvent event)throws IOException{
-        ObservableList<String> options =
-                FXCollections.observableArrayList(
-                        "Doors","Interior Trim","Wood Floor","Paint","Power Tools","Hand Tools","Appliances","Misc"
-                );
-        categoryComboBox.setItems(options);
-    }
-
     public void addItems(ActionEvent event) throws SQLException,IOException {
         int quantity = Integer.parseInt(quantityField.getText());
-        double price = Double.parseDouble(quantityField.getText());
+        double price = Double.parseDouble(priceField.getText());
 
-        loginModel.addItem(itemNameField.getText(),quantity,price, (String)categoryComboBox.getValue(),image);
+
+        loginModel.addItem(itemNameField.getText(),quantity,price,(String)categoryComboBox.getValue(),image);
         loginModel.resetConnection();
     }
 
@@ -85,4 +81,14 @@ public class AddItemController {
         stage.setResizable(false);
         stage.show();
     }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        ObservableList<String> options =
+                FXCollections.observableArrayList(
+                        "Doors","Interior Trim","Wood Floor","Paint","Power Tools","Hand Tools","Appliances","Misc"
+                );
+        categoryComboBox.setItems(options);
+    }
+
 }

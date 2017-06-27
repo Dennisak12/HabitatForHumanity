@@ -20,6 +20,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
@@ -34,7 +35,7 @@ public class ItemSearchController implements Initializable{
     @FXML
     private Button makePaymentButton;
     @FXML
-    private ComboBox resultsComboBox;
+    private ComboBox<String> resultsComboBox;
     @FXML
     private CheckBox doorSelector;
     @FXML
@@ -62,8 +63,8 @@ public class ItemSearchController implements Initializable{
     String image = null;
 
     public void makeImageView(ActionEvent event)throws IOException{
-        String name = null;
-        String price = loginModel.getItemPrice(name);
+        String name = resultsComboBox.getValue();
+        double price = loginModel.getItemPrice(name);
         priceLabel.setText("$"+price);
         loginModel.resetConnection();
 
@@ -96,18 +97,6 @@ public class ItemSearchController implements Initializable{
         loginModel.resetConnection();
     }
 
-
-
-    public void setComboBox(ActionEvent event) throws IOException{
-        loginModel.resetConnection();
-        String username = null;
-        ObservableList<String> list = FXCollections.observableArrayList(
-                loginModel.selectUsername(username));
-        loginModel.resetConnection();
-        resultsComboBox.getItems().add(loginModel.getItemsFromDatabase());
-        loginModel.resetConnection();
-    }
-
     public void jumpToRegularUser(ActionEvent event) throws IOException{
         Node node=(Node) event.getSource();
         Parent root = FXMLLoader.load(getClass().getResource("../View/RegularUserLogin.fxml"));
@@ -119,7 +108,15 @@ public class ItemSearchController implements Initializable{
         stage.show();
     }
 
-    public void jumpToPayment(ActionEvent event) throws IOException{
+    public void jumpToPayment(ActionEvent event) throws IOException, SQLException {
+        loginModel.resetConnection();
+        String name = resultsComboBox.getValue();
+        double price = loginModel.getItemPrice(name);
+        loginModel.resetConnection();
+        String itemName = resultsComboBox.getValue();
+        loginModel.addUniqueItem(itemName,price);
+        loginModel.resetConnection();
+
         Node node=(Node) event.getSource();
         Parent root = FXMLLoader.load(getClass().getResource("../View/CreditCardView.fxml"));
         Scene scene = new Scene(root, 600, 400);

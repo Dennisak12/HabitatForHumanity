@@ -47,10 +47,6 @@
          <font>
             <Font name="Impact" size="14.0" />
          </font></Button>
-      <Button fx:id="addItemsToBox" layoutX="250.0" layoutY="166.0" onAction="#addItemsToBox" mnemonicParsing="false" style="-fx-background-color: #8fe0d9;" text="Load Category">
-         <font>
-            <Font name="Impact" size="14.0" />
-         </font></Button>
-      <ComboBox fx:id="categoryComboBox" layoutX="225.0" layoutY="200.0" prefWidth="150.0" promptText="Category" style="-fx-background-color: #8fe0d9;" />
+      <ComboBox fx:id="categoryComboBox" layoutX="225.0" layoutY="175.0" prefWidth="150.0" promptText="Category" style="-fx-background-color: #8fe0d9;" />
    </children>
 </AnchorPane>

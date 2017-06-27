@@ -4,6 +4,7 @@ import Model.LoginModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -13,11 +14,14 @@ import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.net.URL;
+import java.sql.SQLException;
+import java.util.ResourceBundle;
 
 /**
  * Created by Boss on 6/26/2017.
  */
-public class PaymentController {
+public class PaymentController implements Initializable{
 
     @FXML
     private TextField countryField;
@@ -48,7 +52,27 @@ public class PaymentController {
 
     LoginModel loginModel = new LoginModel();
 
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        loginModel.resetConnection();
+        double price = loginModel.getUniqueItemPrice();
+        loginModel.resetConnection();
+        itemPriceLabel.setText("$"+price);
+        itemNameLabel.setText(loginModel.getItemFromUniqueDatabase());
+        loginModel.resetConnection();
+    }
+
     public void exitToItemSearch(ActionEvent event)throws IOException {
+        //add item to purchased items so admin can view receipts.
+        
+
+        loginModel.resetConnection();
+        //clears the 1 unique item
+        try {
+            loginModel.deleteUniqueTable();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         Node node=(Node) event.getSource();
         Parent root = FXMLLoader.load(getClass().getResource("../View/ItemSearchView.fxml"));
         Scene scene = new Scene(root, 700, 573);

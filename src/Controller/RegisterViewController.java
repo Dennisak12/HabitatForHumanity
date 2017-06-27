@@ -55,7 +55,7 @@ public class RegisterViewController {
     //after the user creates account, will jump to the login page
     public void exitScene(ActionEvent event)throws IOException {
         Node node=(Node) event.getSource();
-        Parent root = FXMLLoader.load(getClass().getResource("../View/ManagerWindow.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("../View/LoginView2.fxml"));
         Scene scene = new Scene(root, 700, 600);
         Stage stage=(Stage) node.getScene().getWindow();
         stage.setTitle("Habitat For Humanity");

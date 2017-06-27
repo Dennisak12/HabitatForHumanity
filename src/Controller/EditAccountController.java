@@ -56,31 +56,21 @@ public class EditAccountController implements Initializable{
         loginModel.resetConnection();
 
         String username = usernameComboBox.getValue();
-        String password= null;
-        String firstName= null;
-        String lastName= null;
-        String address= null;
-        String country= null;
-        String zipCode= null;
-        String email= null;
+        System.out.println(username);
+        loginModel.resetConnection();
+        ArrayList<String> array = new ArrayList<>();
+        array = loginModel.getUsernameInformation(username);
+        System.out.println(array);
+        userNameField.setText(array.get(0));
+        passwordField.setText(array.get(1));
+        firstNameField.setText(array.get(2));
+        lastNameField.setText(array.get(3));
+        addressField.setText(array.get(4));
+        countryField.setText(array.get(5));
+        zipCodeField.setText(array.get(6));
+        emailField.setText(array.get(7));
 
-        //setting all the text fields so the user knows what the previous info was.
-        userNameField.setText(loginModel.selectUsername(username));
-        loginModel.resetConnection();
-        passwordField.setText(loginModel.selectPassword(password));
-        loginModel.resetConnection();
-        firstNameField.setText(loginModel.selectFirstName(firstName));
-        loginModel.resetConnection();
-        lastNameField.setText(loginModel.selectLastName(lastName));
-        loginModel.resetConnection();
-        addressField.setText(loginModel.selectaddress(address));
-        loginModel.resetConnection();
-        countryField.setText(loginModel.selectcountry(country));
-        loginModel.resetConnection();
-        zipCodeField.setText(loginModel.selectZipCode(zipCode));
-        loginModel.resetConnection();
-        emailField.setText(loginModel.selectEmail(email));
-        loginModel.resetConnection();
+
 
     }
 
@@ -102,7 +92,6 @@ public class EditAccountController implements Initializable{
         usernameComboBox.getItems().addAll(list);
         loginModel.resetConnection();
     }
-
 
     public void exitToAdminPane(ActionEvent event)throws IOException {
         Node node=(Node) event.getSource();
