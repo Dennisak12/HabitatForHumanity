@@ -47,7 +47,7 @@ public class RemoveAccountController {
             //searches for the username to delete the account
             String username = removeAccountField.getText();
 
-            if(loginModel.removeCustomer(username)){
+            if(loginModel.removeCustomer(username) == true){
                 //alerting the user that the account is not in the database
                 Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
                 alert.setContentText("Account " + username + " has been deleted");
@@ -55,7 +55,7 @@ public class RemoveAccountController {
 
                 //resetting database
                 loginModel.resetConnection();
-                }else {
+                }else{
                 //alerting the user that the account has been deleted
                 Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
                 alert.setContentText("Account " + username + " was not found in our database");

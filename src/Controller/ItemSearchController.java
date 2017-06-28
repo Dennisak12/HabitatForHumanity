@@ -75,7 +75,6 @@ public class ItemSearchController implements Initializable{
         imageViewResults.setPreserveRatio(true);
         imageViewResults.setSmooth(true);
         imageViewResults.setCache(true);
-
     }
 
     @Override

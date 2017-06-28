@@ -10,9 +10,9 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("../View/ManagerWindow.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("../View/LoginView2.fxml"));
         Scene scene = new Scene(root, 700, 600);
-        primaryStage.setTitle("Administrator");
+        primaryStage.setTitle("Welcome to Habitat For Humanity");
         primaryStage.setScene(scene);
         primaryStage.setResizable(false);
         primaryStage.show();

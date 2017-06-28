@@ -22,10 +22,10 @@
       <TextField fx:id="cscField" layoutX="158.0" layoutY="182.0" />
       <TextField fx:id="expirationDateField" layoutX="158.0" layoutY="221.0" prefHeight="25.0" prefWidth="76.0" />
       <TextField fx:id="billingAddressField" layoutX="158.0" layoutY="264.0" />
-      <TextField layoutX="281.0" layoutY="221.0" prefHeight="25.0" prefWidth="53.0" />
+      <TextField fx:id="creditCardNumberField" layoutX="281.0" layoutY="221.0" prefHeight="25.0" prefWidth="53.0" />
       <TextField fx:id="stateField" layoutX="160.0" layoutY="303.0" />
       <TextField fx:id="teleNumberField" layoutX="160.0" layoutY="344.0" />
-      <Button fx:id="purchaseItemButton" layoutX="376.0" layoutY="323.0" mnemonicParsing="false" style="-fx-background-color: #8fe0d9;" text="Pruchase Item">
+      <Button fx:id="purchaseItemButton" layoutX="376.0" layoutY="323.0" onAction="#payForItem" mnemonicParsing="false" style="-fx-background-color: #8fe0d9;" text="Purchase Item">
          <font>
             <Font name="Impact" size="15.0" />
          </font>
@@ -75,7 +75,7 @@
             <Font name="Corbel" size="14.0" />
          </font>
       </Label>
-      <Label layoutX="245.0" layoutY="222.0" text="CSC:">
+      <Label layoutX="245.0" layoutY="222.0" text="CVV:">
          <font>
             <Font name="Corbel" size="14.0" />
          </font>

@@ -77,6 +77,17 @@ public class AdminController {
         stage.setResizable(false);
         stage.show();
     }
+
+    public void openReceiptView(ActionEvent event) throws IOException{
+        Node node=(Node) event.getSource();
+        Parent root = FXMLLoader.load(getClass().getResource("../View/ReceiptView.fxml"));
+        Scene scene = new Scene(root, 600, 400);
+        Stage stage=(Stage) node.getScene().getWindow();
+        stage.setTitle("Invoices");
+        stage.setScene(scene);
+        stage.setResizable(false);
+        stage.show();
+    }
     public void jumpToMainScreen(ActionEvent event) throws IOException {
         //confirmation for the user that the account has been created
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);

@@ -22,7 +22,7 @@
          <font>
             <Font name="Impact" size="18.0" />
          </font></Button>
-      <Button fx:id="viewReportsButton" layoutX="229.0" layoutY="146.0" mnemonicParsing="false" style="-fx-background-color: #8fe0d9;" text="View Reports">
+      <Button fx:id="viewReportsButton" layoutX="229.0" layoutY="146.0" onAction="#openReceiptView" mnemonicParsing="false" style="-fx-background-color: #8fe0d9;" text="View Reports">
          <font>
             <Font name="Impact" size="18.0" />
          </font></Button>

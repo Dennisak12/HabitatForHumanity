@@ -15,6 +15,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
@@ -45,16 +46,15 @@ public class EditAccountController implements Initializable{
     private Button exitFromViewButton;
     @FXML
     private ComboBox<String> usernameComboBox;
+    @FXML
+    private Button loadAccountInfoButton;
 
     LoginModel loginModel = new LoginModel();
     private Connection connection;
 
-
     public void getTextFieldInformation(ActionEvent event) {
-
         //start fresh on a reset database
         loginModel.resetConnection();
-
         String username = usernameComboBox.getValue();
         System.out.println(username);
         loginModel.resetConnection();
@@ -69,9 +69,23 @@ public class EditAccountController implements Initializable{
         countryField.setText(array.get(5));
         zipCodeField.setText(array.get(6));
         emailField.setText(array.get(7));
+    }
 
+    public void editUserAccount(ActionEvent event) throws SQLException {
+        System.out.println("hi");
 
+        String username = userNameField.getText();
+        String password = passwordField.getText();
+        String firstName = firstNameField.getText();
+        String lastName = lastNameField.getText();
+        String address = addressField.getText();
+        String country = countryField.getText();
+        String zipCode = zipCodeField.getText();
+        String email = emailField.getText();
 
+        loginModel.resetConnection();
+        loginModel.updateUserAccount(username,password,firstName,lastName,address,country,zipCode,email);
+        loginModel.resetConnection();
     }
 
     @Override

@@ -62,9 +62,23 @@ public class PaymentController implements Initializable{
         loginModel.resetConnection();
     }
 
+
+    public void payForItem(ActionEvent event) throws IOException, SQLException {
+        loginModel.resetConnection();
+        loginModel.addCreditCardInfo(countryField.getText(),lastNameField.getText(),firstNameField.getText(),
+                creditCardNumberField.getText(),expirationDateField.getText(),billingAddressField.getText(),stateField.getText(),
+                teleNumberField.getText(),cscField.getText());
+
+        loginModel.resetConnection();
+        double price = loginModel.getUniqueItemPrice();
+        loginModel.resetConnection();
+        loginModel.addToReceiptList(loginModel.getItemFromUniqueDatabase(),price);
+        loginModel.resetConnection();
+    }
+
     public void exitToItemSearch(ActionEvent event)throws IOException {
         //add item to purchased items so admin can view receipts.
-        
+
 
         loginModel.resetConnection();
         //clears the 1 unique item

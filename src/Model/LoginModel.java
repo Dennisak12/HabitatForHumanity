@@ -69,25 +69,41 @@ public class LoginModel {
         }
     }
 
-    public boolean removeCustomer(String user)throws SQLException {
+    public Boolean removeCustomer(String username)throws SQLException {
         String query = "DELETE FROM Customer WHERE username = ?";
         PreparedStatement preparedStatement = null;
-        ResultSet result = null;
+//        ResultSet result = null;
         String name = null;
-        try {
-            preparedStatement = connection.prepareStatement(query);
-            System.out.println(user);
-            preparedStatement.setString(1, user);
-            result = preparedStatement.executeQuery();
-            // loop through the result set
-            while (result.next()) {
-                name = result.getString("username");
-                return true;
-            }
-            return true;
-        } catch (SQLException e) {
-            return false;
+    try {
+        preparedStatement = connection.prepareStatement(query);
+        System.out.println(username);
+        preparedStatement.setString(1, username);
+        preparedStatement.executeUpdate();
+
+        return true;
+    }catch(SQLException e){
+        return false;
         }
+    }
+
+    public void updateUserAccount(String username, String password,String firstName,String lastName,
+                                  String address,String country,String zipCode,String email) throws SQLException{
+            PreparedStatement preparedStatement;
+            String query = "UPDATE Customer SET username=?,password=?,firstName=?,lastName=?,address=?,country=?,zipCode=?,email=? WHERE username=?";
+            preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1,username);
+            preparedStatement.setString(2,password);
+            preparedStatement.setString(3,firstName);
+            preparedStatement.setString(4,lastName);
+            preparedStatement.setString(5,address);
+            preparedStatement.setString(6,country);
+            preparedStatement.setString(7,zipCode);
+            preparedStatement.setString(8,email);
+            preparedStatement.setString(9,username);
+            System.out.println(username);
+            preparedStatement.executeUpdate();
+            preparedStatement.close();
+            connection.close();
     }
 
     public String getItemFromUniqueDatabase(){
@@ -109,6 +125,25 @@ public class LoginModel {
 
     public ArrayList getItemsFromDatabase(){
         String query = "SELECT * FROM Items";
+        String name;
+        ArrayList<String> array = new ArrayList<String>();
+
+        try (Connection conn = this.connection;
+             Statement statement = conn.createStatement();
+             ResultSet result = statement.executeQuery(query)) {
+            while (result.next()) {
+                name = result.getString("name");
+                array.add(name);
+            }
+            return array;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return array;
+    }
+
+    public ArrayList getItemsFromInvoiceDatabase(){
+        String query = "SELECT * FROM purchasedItems";
         String name;
         ArrayList<String> array = new ArrayList<String>();
 
@@ -215,6 +250,23 @@ public class LoginModel {
 
     }
 
+    public void addCreditCardInfo(String country,String lastName,String firstName,String creditCardNum, String expirationDate,
+                                  String billingAddress,String state,String teleNum,String cvcNum) throws SQLException,IOException {
+        PreparedStatement preparedStatement;
+        String query = "INSERT INTO creditCards (country,lastName,firstName,creditCardNum,expirationDate,billingAddress,state,teleNum,cvcNum) VALUES("
+                + "'" + country + "', " + "'" + lastName + "', " + "'" + firstName + "', " + "'" + creditCardNum + "', "
+                + "'" + expirationDate+ "', " + "'" + billingAddress+ "', " + "'" +state+ "', " + "'" +teleNum+ "', " + "'" +cvcNum + "'); ";
+        preparedStatement = connection.prepareStatement(query);
+        preparedStatement.executeUpdate();
+        preparedStatement.close();
+        connection.close();
+
+        //confirmation for the user that the account has been created
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setContentText("Item has been stored in database");
+        alert.showAndWait();
+    }
+
     public void addItem(String name,int quantity,double price,String category, String imageUrl) throws SQLException,IOException {
         PreparedStatement preparedStatement;
         String query = "INSERT INTO Items (name,quantity,price,category,imageUrl) VALUES("
@@ -241,20 +293,15 @@ public class LoginModel {
         connection.close();
     }
 
-    public String selectUsername(String username){
-        String query = "SELECT * FROM Customer";
-        try (Connection conn = this.connection;
-             Statement statement = conn.createStatement();
-             ResultSet result = statement.executeQuery(query)){
-
-            // loop through the result set
-            while (result.next()) {
-                username = result.getString("username");
-            }
-            return username;
-        } catch (SQLException e) {
-            return "did not find username";
-        }
+    public void addToReceiptList(String name,double price) throws SQLException,IOException {
+        resetConnection();
+        PreparedStatement preparedStatement;
+        String query = "INSERT INTO purchasedItems (name,price) VALUES("
+                + "'" + name + "', " + "'" + price + "'); ";
+        preparedStatement = connection.prepareStatement(query);
+        preparedStatement.executeUpdate();
+        preparedStatement.close();
+        connection.close();
     }
 
     public String getImageUrl(String name){
@@ -271,7 +318,6 @@ public class LoginModel {
             // loop through the result set
             while (result.next()) {
                 url = result.getString("imageUrl");
-
             }
             return url;
         } catch (SQLException e) {
@@ -296,13 +342,9 @@ public class LoginModel {
                 price = result.getDouble("price");
 
             }
-
             return price;
-
         } catch (SQLException e) {
-
             return 0;
-
         }
     }
 
@@ -324,6 +366,50 @@ public class LoginModel {
             return price;
         } catch (SQLException e) {
             return 0;
+        }
+    }
+
+    public double getInvoiceItemPrice(String name){
+        String query = "SELECT * FROM purchasedItems WHERE name = ?";
+        PreparedStatement preparedStatement = null;
+        ResultSet result = null;
+        double price = 0;
+
+        try {
+            preparedStatement = connection.prepareStatement(query);
+            System.out.println(name);
+            preparedStatement.setString(1, name);
+            result = preparedStatement.executeQuery();
+
+            // loop through the result set
+            while (result.next()) {
+                price = result.getDouble("price");
+
+            }
+            return price;
+        } catch (SQLException e) {
+            return 0;
+        }
+    }
+
+    public String getItemFromInvoiceDatabase(String name){
+        String query = "SELECT * FROM purchasedItems WHERE name = ?";
+        PreparedStatement preparedStatement = null;
+        ResultSet result = null;
+
+
+        try {preparedStatement = connection.prepareStatement(query);
+            System.out.println(name);
+            preparedStatement.setString(1, name);
+            result = preparedStatement.executeQuery();
+
+            // loop through the result set
+            while (result.next()) {
+                name = result.getString("name");
+            }
+            return name;
+        } catch (SQLException e) {
+            return "failure";
         }
     }
 

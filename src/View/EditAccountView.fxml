@@ -69,7 +69,12 @@
             <Font name="Corbel" size="37.0" />
          </font>
       </Label>
-      <Button fx:id="editAccountButton" layoutX="357.0" layoutY="342.0" onAction="#getTextFieldInformation" mnemonicParsing="false" style="-fx-background-color: #8fe0d9;" text="Accept Changes">
+      <Button fx:id="editAccountButton" layoutX="357.0" layoutY="342.0" onAction="#editUserAccount" mnemonicParsing="false" style="-fx-background-color: #8fe0d9;" text="Accept Changes">
+         <font>
+            <Font name="Impact" size="16.0" />
+         </font>
+      </Button>
+      <Button fx:id="loadAccountInfoButton" layoutX="397.0" layoutY="172.0" onAction="#getTextFieldInformation" mnemonicParsing="false" style="-fx-background-color: #8fe0d9;" text="Load Account">
          <font>
             <Font name="Impact" size="16.0" />
          </font>
